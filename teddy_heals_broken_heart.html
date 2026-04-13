@@ -1,0 +1,213 @@
+
+<style>
+  @keyframes heartCrack { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+  @keyframes teddyWalk { 0%{transform:translateX(320px)} 100%{transform:translateX(0px)} }
+  @keyframes teddyHug { 0%,100%{transform:rotate(0deg)} 30%{transform:rotate(-8deg)} 70%{transform:rotate(8deg)} }
+  @keyframes heartHeal { 0%{opacity:1} 100%{opacity:0} }
+  @keyframes heartGlow { 0%,100%{filter:drop-shadow(0 0 4px #ff6b8a)} 50%{filter:drop-shadow(0 0 14px #ff3366)} }
+  @keyframes medicineAppear { 0%{opacity:0;transform:translateY(20px)} 100%{opacity:1;transform:translateY(0)} }
+  @keyframes bubbleIn { 0%{opacity:0;transform:scale(0.5)} 100%{opacity:1;transform:scale(1)} }
+  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+  @keyframes sparkle { 0%,100%{opacity:0;transform:scale(0)} 50%{opacity:1;transform:scale(1)} }
+  @keyframes pulsePink { 0%,100%{transform:scale(1)} 50%{transform:scale(1.15)} }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+</style>
+
+<div style="background:#fff0f5;border-radius:20px;padding:24px 16px 20px;text-align:center;font-family:Georgia,serif;overflow:hidden;min-height:420px;">
+
+  <div id="scene" style="position:relative;width:100%;height:340px;">
+
+    <!-- Broken heart - center stage initially -->
+    <div id="brokenHeart" style="position:absolute;left:50%;top:60px;transform:translateX(-50%);animation:heartCrack 1.2s ease-in-out infinite;">
+      <svg width="110" height="100" viewBox="0 0 110 100">
+        <!-- left half -->
+        <path d="M55 85 C55 85 10 55 10 30 C10 15 22 5 35 5 C44 5 52 12 55 18" fill="#e24b4a" stroke="#a32d2d" stroke-width="1.5"/>
+        <!-- right half -->
+        <path d="M55 85 C55 85 100 55 100 30 C100 15 88 5 75 5 C66 5 58 12 55 18" fill="#c02020" stroke="#a32d2d" stroke-width="1.5"/>
+        <!-- crack -->
+        <path d="M55 18 L49 35 L58 45 L50 60 L55 85" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- gap -->
+        <line x1="52" y1="18" x2="58" y2="18" stroke="white" stroke-width="3"/>
+      </svg>
+      <div id="crackLines" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;">
+        <svg width="110" height="100" viewBox="0 0 110 100" style="position:absolute;top:0;left:0;">
+          <line x1="30" y1="20" x2="20" y2="35" stroke="#ff8888" stroke-width="1" opacity="0.7"/>
+          <line x1="75" y1="18" x2="85" y2="30" stroke="#ff8888" stroke-width="1" opacity="0.7"/>
+          <line x1="25" y1="50" x2="15" y2="60" stroke="#ff8888" stroke-width="1" opacity="0.7"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Teddy - starts from right, walks to heart -->
+    <div id="teddy" style="position:absolute;bottom:20px;left:20px;animation:teddyWalk 2s ease-out forwards;">
+      <svg width="90" height="130" viewBox="0 0 90 130">
+        <!-- ears -->
+        <circle cx="22" cy="22" r="14" fill="#c17c52"/>
+        <circle cx="22" cy="22" r="8" fill="#d4956b"/>
+        <circle cx="68" cy="22" r="14" fill="#c17c52"/>
+        <circle cx="68" cy="22" r="8" fill="#d4956b"/>
+        <!-- head -->
+        <circle cx="45" cy="42" r="30" fill="#c17c52"/>
+        <!-- snout -->
+        <ellipse cx="45" cy="52" rx="14" ry="10" fill="#d4956b"/>
+        <!-- eyes happy -->
+        <circle cx="34" cy="36" r="5" fill="#2c1a0e"/>
+        <circle cx="56" cy="36" r="5" fill="#2c1a0e"/>
+        <circle cx="36" cy="34" r="2" fill="white"/>
+        <circle cx="58" cy="34" r="2" fill="white"/>
+        <!-- smile -->
+        <path d="M37 56 Q45 63 53 56" fill="none" stroke="#2c1a0e" stroke-width="2" stroke-linecap="round"/>
+        <!-- nose -->
+        <ellipse cx="45" cy="50" rx="5" ry="3" fill="#2c1a0e"/>
+        <!-- body -->
+        <ellipse cx="45" cy="95" rx="26" ry="28" fill="#c17c52"/>
+        <ellipse cx="45" cy="100" rx="16" ry="18" fill="#d4956b"/>
+        <!-- arms raised for hug -->
+        <ellipse cx="16" cy="85" rx="9" ry="18" fill="#c17c52" transform="rotate(-30,16,85)"/>
+        <ellipse cx="74" cy="85" rx="9" ry="18" fill="#c17c52" transform="rotate(30,74,85)"/>
+        <!-- legs -->
+        <ellipse cx="33" cy="120" rx="10" ry="8" fill="#b06840"/>
+        <ellipse cx="57" cy="120" rx="10" ry="8" fill="#b06840"/>
+        <!-- blush -->
+        <ellipse cx="25" cy="50" rx="8" ry="5" fill="rgba(255,120,140,0.4)"/>
+        <ellipse cx="65" cy="50" rx="8" ry="5" fill="rgba(255,120,140,0.4)"/>
+      </svg>
+    </div>
+
+    <!-- Healed heart (hidden initially) -->
+    <div id="healedHeart" style="position:absolute;left:50%;top:55px;transform:translateX(-50%);opacity:0;animation:none;">
+      <svg width="110" height="100" viewBox="0 0 110 100" style="filter:drop-shadow(0 0 8px #ff6b8a);">
+        <path d="M55 85 C55 85 10 55 10 30 C10 15 22 5 35 5 C44 5 52 12 55 18 C58 12 66 5 75 5 C88 5 100 15 100 30 C100 55 55 85 55 85Z" fill="#ff6b8a" stroke="#d4537e" stroke-width="1.5"/>
+        <!-- shine -->
+        <ellipse cx="38" cy="25" rx="10" ry="14" fill="rgba(255,255,255,0.25)" transform="rotate(-20,38,25)"/>
+        <!-- stitch (bandage look) -->
+        <line x1="45" y1="30" x2="65" y2="30" stroke="white" stroke-width="3" stroke-dasharray="4,3" stroke-linecap="round"/>
+        <line x1="55" y1="20" x2="55" y2="42" stroke="white" stroke-width="3" stroke-dasharray="4,3" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <!-- Sparkles around healed heart (hidden) -->
+    <div id="sparkles" style="position:absolute;left:50%;top:40px;transform:translateX(-50%);opacity:0;pointer-events:none;">
+      <svg width="150" height="120" viewBox="0 0 150 120">
+        <polygon points="10,10 13,20 23,20 15,26 18,36 10,30 2,36 5,26 -3,20 7,20" fill="#ffd700" opacity="0.9"/>
+        <polygon points="140,15 142,23 150,23 144,28 146,36 140,31 134,36 136,28 130,23 138,23" fill="#ffd700" opacity="0.8"/>
+        <polygon points="75,5 77,11 83,11 78,15 80,21 75,17 70,21 72,15 67,11 73,11" fill="#ff9fc7" opacity="0.9"/>
+        <circle cx="20" cy="70" r="4" fill="#ff6b8a" opacity="0.7"/>
+        <circle cx="130" cy="60" r="3" fill="#ffd700" opacity="0.8"/>
+        <circle cx="10" cy="50" r="2" fill="#ff9fc7" opacity="0.9"/>
+      </svg>
+    </div>
+
+    <!-- Medicine box (hidden initially) -->
+    <div id="medicine" style="position:absolute;right:20px;top:80px;opacity:0;">
+      <svg width="70" height="80" viewBox="0 0 70 80">
+        <!-- box -->
+        <rect x="5" y="10" width="60" height="60" rx="8" fill="#fff" stroke="#d4537e" stroke-width="2"/>
+        <!-- red cross -->
+        <rect x="28" y="20" width="14" height="40" rx="4" fill="#e24b4a"/>
+        <rect x="15" y="33" width="40" height="14" rx="4" fill="#e24b4a"/>
+        <!-- pills inside hint -->
+        <circle cx="20" cy="65" r="4" fill="#ff9fc7" stroke="#d4537e" stroke-width="1"/>
+        <circle cx="35" cy="65" r="4" fill="#a0d8ef" stroke="#378add" stroke-width="1"/>
+        <circle cx="50" cy="65" r="4" fill="#c0dd97" stroke="#639922" stroke-width="1"/>
+      </svg>
+    </div>
+
+    <!-- Speech bubble (hidden initially) -->
+    <div id="bubble" style="position:absolute;left:50%;top:5px;transform:translateX(-50%);opacity:0;background:#fff0f8;border:2px solid #f4c0d1;border-radius:16px;padding:8px 14px;white-space:nowrap;font-size:13px;color:#72243e;font-family:Georgia,serif;box-shadow:0 2px 8px rgba(212,83,126,0.15);">
+      Lo cutie... medicine time pe lena
+      <div style="position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:10px solid #f4c0d1;"></div>
+    </div>
+
+  </div>
+
+  <!-- Stage label -->
+  <div id="stageLabel" style="font-size:14px;color:#993556;margin-top:4px;min-height:22px;animation:fadeIn 0.5s ease;">
+    Dil toot gaya hai... 💔
+  </div>
+
+  <!-- Replay button -->
+  <button id="replayBtn" onclick="startAnimation()" style="margin-top:12px;background:#f4c0d1;border:none;border-radius:20px;padding:8px 22px;color:#72243e;font-size:13px;cursor:pointer;font-family:Georgia,serif;">
+    Phir se dekho
+  </button>
+
+</div>
+
+<script>
+let phase = 0;
+let timers = [];
+
+function clearTimers() {
+  timers.forEach(t => clearTimeout(t));
+  timers = [];
+}
+
+function t(fn, ms) {
+  timers.push(setTimeout(fn, ms));
+}
+
+function startAnimation() {
+  clearTimers();
+  phase = 0;
+
+  const teddy = document.getElementById('teddy');
+  const brokenHeart = document.getElementById('brokenHeart');
+  const healedHeart = document.getElementById('healedHeart');
+  const medicine = document.getElementById('medicine');
+  const bubble = document.getElementById('bubble');
+  const sparkles = document.getElementById('sparkles');
+  const label = document.getElementById('stageLabel');
+
+  teddy.style.animation = 'none';
+  teddy.style.left = '20px';
+  brokenHeart.style.opacity = '1';
+  brokenHeart.style.animation = 'heartCrack 1.2s ease-in-out infinite';
+  healedHeart.style.opacity = '0';
+  healedHeart.style.animation = 'none';
+  medicine.style.opacity = '0';
+  medicine.style.animation = 'none';
+  bubble.style.opacity = '0';
+  bubble.style.animation = 'none';
+  sparkles.style.opacity = '0';
+  label.textContent = 'Dil toot gaya hai... \uD83D\uDC94';
+
+  t(() => {
+    teddy.style.transition = 'left 2s ease-out';
+    teddy.style.left = '20px';
+    teddy.style.animation = 'teddyWalk 2s ease-out forwards';
+    label.textContent = 'Teddy aa raha hai dil ko uthane... \uD83E\uDDF8';
+  }, 300);
+
+  t(() => {
+    teddy.style.animation = 'teddyHug 0.8s ease-in-out infinite';
+    label.textContent = 'Badge kar raha hai pyaar se... \uD83E\uDDE1';
+    brokenHeart.style.animation = 'none';
+    brokenHeart.style.transition = 'opacity 1s';
+    brokenHeart.style.opacity = '0.4';
+  }, 2500);
+
+  t(() => {
+    brokenHeart.style.opacity = '0';
+    healedHeart.style.opacity = '1';
+    healedHeart.style.animation = 'pulsePink 1.5s ease-in-out infinite, heartGlow 2s ease-in-out infinite';
+    sparkles.style.opacity = '1';
+    sparkles.style.animation = 'sparkle 0.6s ease-out forwards';
+    label.textContent = 'Dil theek ho gaya! \u2764\uFE0F';
+  }, 4200);
+
+  t(() => {
+    medicine.style.opacity = '1';
+    medicine.style.animation = 'medicineAppear 0.6s ease-out forwards, bounce 2s ease-in-out 0.6s infinite';
+    label.textContent = 'Ab medicine bhi de raha hai... \uD83D\uDC8A';
+  }, 5500);
+
+  t(() => {
+    bubble.style.opacity = '1';
+    bubble.style.animation = 'bubbleIn 0.5s ease-out forwards';
+    teddy.style.animation = 'bounce 1.5s ease-in-out infinite';
+    label.textContent = '"Lo cutie, medicine time pe lena!" \uD83D\uDE0A';
+  }, 6800);
+}
+
+startAnimation();
+</script>
